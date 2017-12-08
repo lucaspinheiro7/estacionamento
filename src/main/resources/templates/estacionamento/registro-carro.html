@@ -1,18 +1,88 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout-padrao}">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width" >
-	<title>Estacionamento</title>
-	<link type="text/css" href="" 
-		rel="stylesheet">
-	<link type="text/css" href="" 
-		rel="stylesheet">
 </head>
 <body>
-	<h1>Estacionamento</h1>
-	
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-8">
+						<h1>Registrar Entrada</h1>
+					</div>
+
+					<div class="col-xs-4">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-primary" href="lista-vinhos.html"> <i
+								class="fa fa-table"></i> <span class="hidden-xs hidden-sm">Lista
+									de Veículos</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+
+
+			<form method="POST" class="form-vertical  js-form-loading"
+				th:object="${carro}" th:action="@{/estacionamento/novo}">
+
+				<div class="alert  alert-success"
+					th:if="${!#strings.isEmpty(mensagem)}">
+					<i class="fa fa-check-circle"></i> <span th:text="${mensagem}">Mensagem
+						sucesso!</span>
+				</div>
+
+				<div class="alert  alert-danger  alert-dismissible" role="alert"
+					th:if="${#fields.hasAnyErrors()}">
+
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+					<div th:each="erro: ${#fields.detailedErrors()}">
+						<i class="fa fa-exclamation-circle"></i> <span
+							th:text="${erro.message}">Mensagem erro.</span>
+					</div>
+				</div>
+
+				<input type="hidden" th:field="*{id}">
+
+				<div class="form-group">
+					<label for="modelo">Modelo do veículo</label> <input id="modelo"
+						type="text" class="form-control" th:field="*{modelo}" />
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="placa">Placa do veículo</label> <input id="placa"
+								type="text" class="form-control" th:field="*{placa}" />
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="precoHora">Preço por hora</label> <input
+								id="precoHora" type="text" class="form-control js-moeda"
+								th:field="*{precoHora}" />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Registrar</button>
+				</div>
+			</form>
+		</div>
+	</section>
 	<script type="text/javascript" src=""></script>
 	<script type="text/javascript" src=""></script>
 </body>
