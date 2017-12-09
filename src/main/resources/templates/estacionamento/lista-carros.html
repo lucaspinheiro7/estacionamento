@@ -4,82 +4,94 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout-padrao}">
 <head>
-	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/lista-vinhos.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/stylesheets/lista-vinhos.css}" />
 </head>
 <body>
 	<section layout:fragment="conteudo">
-			<div class="page-header">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-xs-8">
-							<h1>
-								Carros Estacionados
-							</h1>
-						</div>
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-8">
+						<h1>Carros Estacionados</h1>
+					</div>
 
-						<div class="col-xs-4">
-							<div class="aw-page-header-controls">
-								<a class="btn btn-primary" th:href="@{/estacionamento/novo}">
-									<i class="fa fa-plus-square"></i>
-									<span class="hidden-xs hidden-sm">Registrar novo carro</span>
-								</a>
-							</div>
+					<div class="col-xs-4">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-primary" th:href="@{/estacionamento/novo}">
+								<i class="fa fa-plus-square"></i> <span
+								class="hidden-xs hidden-sm">Registrar nova entrada</span>
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="container-fluid">
-			
-				<div class="alert  alert-success" th:if="${!#strings.isEmpty(mensagem)}">
-					<i class="fa fa-check-circle"></i>
-					<span>Mensagem sucesso!</span>
-				</div>
+		<div class="container-fluid">
 
-				<div class="table-responsive">
-					<table id="tabela-produtos" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
-						<thead class="aw-table-header-solid">
-							<tr>
-								<th class="av-table-vinhos-col-codigo">Código</th>
-								<th class="text-center">Modelo</th>
-								<th class="av-table-vinhos-col-tipo text-center">Placa</th>
-								<th class="av-table-vinhos-col-tipo text-center">Valor</th>
-								<th class="text-center">Entrada</th>
-								<th class=" text-center">Total a pagar</th>
-								<th class="av-table-vinhos-col-icons">Excluir</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="carro: ${carros}">
-							
-								<td class="text-center" th:text="${carro.id}">1</td>
-								
-								<td class="text-center" th:text="${carro.modelo}">Corsa Azul</td>
-
-								<td class="text-center" style="text-transform:uppercase" th:text="${carro.placa}">AAA-9999</td>
-
-								<td class="text-center" th:text="${carro.precoHora}">55,00</td>
-								
-								<td class="text-center" th:text="${#dates.format(carro.horaEntrada, 'HH:mm')}">20:40</td>
-								
-								<td class="text-center" th:text="${'R$ ' + #numbers.formatDecimal(carro.totPagar, 1, 2)}">55</td>
-
-								<td class="text-center">
-									<form method="POST" onsubmit="return confirm('Posso remover?');">
-										<button type="submit" class="btn btn-danger btn-xs">
-											<span class="fa fa-trash"></span>
-										</button>
-									</form>
-								</td>
-							</tr>
-
-							<tr th:if="${carros.empty}">
-								<td colspan="7">Nenhum Carro no pátio</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+			<div class="alert  alert-success"
+				th:if="${!#strings.isEmpty(mensagem)}">
+				<i class="fa fa-check-circle"></i> 
+				<span
+				th:text="${mensagem}">Mensagem sucesso!</span>
 			</div>
-		</section>
+
+			<div class="table-responsive">
+				<table id="tabela-produtos"
+					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					<thead class="aw-table-header-solid">
+						<tr>
+							<th class="av-table-vinhos-col-codigo">Código</th>
+							<th class="text-center">Modelo</th>
+							<th class="av-table-vinhos-col-valor text-center">Placa</th>
+							<th class="av-table-vinhos-col-tipo text-center">Preço/Hora</th>
+							<th class="text-center">Entrada</th>
+							<th class="av-table-vinhos-col-valor text-center">Total a
+								pagar</th>
+							<th class="av-table-vinhos-col-icons">Excluir</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="carro: ${carros}">
+
+							<td class="text-center" th:text="${carro.id}">1</td>
+
+							<td class="text-center" th:text="${carro.modelo}">Corsa Azul</td>
+
+							<td class="text-center" style="text-transform: uppercase"
+								th:text="${carro.placa}">AAA-9999</td>
+
+							<td class="text-center" th:text="${carro.precoHora}">55,00</td>
+
+							<td class="text-center"
+								th:text="${#dates.format(carro.horaEntrada, 'HH:mm')}">20:40</td>
+
+							<td class="text-center"
+								th:text="${'R$ ' + #numbers.formatDecimal(carro.totPagar, 1, 2)}">55</td>
+
+							<td class="text-center">
+								<form method="POST"
+									th:onsubmit=" ' return confirm(\'Deseja remover ' + ${carro.modelo} + ' ?\'); '"
+									th:action="@{/estacionamento/{id}(id=${carro.id	})}">
+
+									<input type="hidden" name="_method" value="DELETE" />
+
+									<button type="submit" class="btn btn-danger btn-xs">
+										<span class="fa fa-trash"></span>
+									</button>
+								</form>
+							</td>
+
+						</tr>
+
+						<tr th:if="${carros.empty}">
+							<td colspan="7">Nenhum Carro no pátio</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

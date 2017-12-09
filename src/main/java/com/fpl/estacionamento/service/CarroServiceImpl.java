@@ -9,6 +9,7 @@ import org.joda.time.Hours;
 import org.joda.time.Minutes;
 import org.springframework.stereotype.Service;
 
+@SuppressWarnings("unused")
 @Service
 public class CarroServiceImpl implements CarroService {
 
@@ -24,11 +25,10 @@ public class CarroServiceImpl implements CarroService {
 		// int i = Hours.hoursBetween(entrada, saida).getHours();
 		
 		/**
-		 * Calculando Horas e minutos
+		 * Calculando a parte real (horas + minutos)
 		 */
 		BigDecimal minutos =  new BigDecimal(Minutes.minutesBetween(entrada, saida).getMinutes());
 		BigDecimal horas = minutos.divide(new BigDecimal("60"), 2, RoundingMode.HALF_UP);
-		System.out.println("VALOR DAS HORAS = " +horas);
 		return horas;
 	}
 
@@ -38,6 +38,4 @@ public class CarroServiceImpl implements CarroService {
 		BigDecimal totPagar = precoHora.multiply(horas);
 		return totPagar;
 	}
-	
-	
 }
