@@ -1,4 +1,4 @@
-# Sistema pra gerenciamento de um estacionamento
+# Sistema para gerenciamento de um estacionamento
 
 ## Requisitos Funcionais:
 
@@ -8,7 +8,7 @@
 	preço/hora x quantidade de horas no estacionamento;
 * Remover veículos do pátio;
 
-# tecnologias utilizadas:
+## tecnologias utilizadas:
 
 * Spring Boot 
 * Spring Boot DevTools
@@ -24,5 +24,6 @@
 * Bean Validation
 * JQuery
 * Joda-Time
+
 
 p.s. Layout disponibilizado pela [AlgaWorks](http://www.algaworks.com/)
