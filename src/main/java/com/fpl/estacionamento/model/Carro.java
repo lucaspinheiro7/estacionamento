@@ -2,11 +2,14 @@ package com.fpl.estacionamento.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,7 +34,12 @@ public class Carro implements Serializable {
 	@NumberFormat(pattern="#,##0.00")
 	private BigDecimal precoHora;
 	
-
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date horaEntrada;
+	
+	@NumberFormat(pattern="#,##0.00")
+	private BigDecimal totPagar;
+	
 	public Long getId() {
 		return id;
 	}
@@ -58,6 +66,20 @@ public class Carro implements Serializable {
 	}
 	public void setPrecoHora(BigDecimal precoHora) {
 		this.precoHora = precoHora;
+	}
+	
+	public Date getHoraEntrada() {
+		return horaEntrada;
+	}
+	public void setHoraEntrada(Date horaEntrada) {
+		this.horaEntrada = horaEntrada;
+	}
+	
+	public BigDecimal getTotPagar() {
+		return totPagar;
+	}
+	public void setTotPagar(BigDecimal totPagar) {
+		this.totPagar = totPagar;
 	}
 	
 	@Override
