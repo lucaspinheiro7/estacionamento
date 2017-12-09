@@ -8,7 +8,7 @@
 	preço/hora x quantidade de horas no estacionamento;
 * Remover veículos do pátio;
 
-## tecnologias utilizadas:
+## Tecnologias utilizadas:
 
 * Spring Boot 
 * Spring Boot DevTools
